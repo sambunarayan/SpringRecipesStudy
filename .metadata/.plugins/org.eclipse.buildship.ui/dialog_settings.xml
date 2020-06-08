@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.buildship.ui.wizard.project.import">
+		<item key="project_location" value="D:\Git\spring-5-recipes\spring-recipes-4th\ch03\recipe_3_3_i"/>
+		<item key="gradle_distribution" value="GRADLE_DISTRIBUTION(VERSION(4.10.2))"/>
+		<item key="apply_working_sets" value="false"/>
+		<item key="gradle_user_home" value="D:\gradle-6.4"/>
+		<item key="java_home" value="C:\Program Files\Java\jdk1.8.0_221"/>
+		<list key="working_sets">
+		</list>
+	</section>
+</section>

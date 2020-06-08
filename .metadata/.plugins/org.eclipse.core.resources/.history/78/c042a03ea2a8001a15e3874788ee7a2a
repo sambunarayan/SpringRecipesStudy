@@ -1,0 +1,9 @@
+package com.apress.springrecipes.exception;
+
+import java.util.Date;
+
+public class ReservationnotAvailableException extends RuntimeException {
+	private String courtName;
+	private Date date;
+	private int hour;
+}

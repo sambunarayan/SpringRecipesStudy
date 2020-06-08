@@ -1,0 +1,13 @@
+package com.apress.springrecipes.cotroller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.apress.springrecipes.service.ReservationService;
+
+@Controller
+@RequestMapping("/reservationQuery")
+public class ReservationQueryController {
+
+	private final ReservationService reservationService;
+}

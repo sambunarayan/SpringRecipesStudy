@@ -1,0 +1,8 @@
+package com.apress.springrecipes.web;
+
+import javax.servlet.ServletContainerInitializer;
+
+public class CourtServletContainerInitializer implements ServletContainerInitializer {
+
+}
+	

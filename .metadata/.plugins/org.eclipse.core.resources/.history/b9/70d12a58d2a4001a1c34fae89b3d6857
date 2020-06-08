@@ -1,0 +1,19 @@
+package com.apress.springrecipes.service;
+
+import java.util.List;
+
+import com.apress.springrecipes.domain.Reservation;
+import com.apress.springrecipes.domain.SportType;
+
+@Service
+public class ReservationServiceImpl implements ReservationService {
+
+	public static final SportType TENNIS = new SportType(1, "Tennis");
+	
+	@Override
+	public List<Reservation> query(String courtName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

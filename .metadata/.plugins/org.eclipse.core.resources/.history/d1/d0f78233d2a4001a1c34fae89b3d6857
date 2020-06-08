@@ -1,0 +1,15 @@
+package com.apress.springrecipes.service;
+
+import java.util.List;
+
+import com.apress.springrecipes.domain.Reservation;
+
+public class ReservationServiceImpl implements ReservationService {
+
+	@Override
+	public List<Reservation> query(String courtName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

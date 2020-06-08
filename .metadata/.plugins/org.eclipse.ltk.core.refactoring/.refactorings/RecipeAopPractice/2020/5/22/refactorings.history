@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.apress.springrecipes.calculator.MinCalculatorImple&apos; to &apos;MinCalculatorImpl&apos;&#x0D;&#x0A;- Original project: &apos;RecipeAopPractice&apos;&#x0D;&#x0A;- Original element: &apos;com.apress.springrecipes.calculator.MinCalculatorImple&apos;&#x0D;&#x0A;- Renamed element: &apos;com.apress.springrecipes.calculator.MinCalculatorImpl&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;MinCalculatorImple&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java&lt;com.apress.springrecipes.calculator{MinCalculatorImple.java[MinCalculatorImple" matchStrategy="1" name="MinCalculatorImpl" qualified="false" references="true" similarDeclarations="false" stamp="1590502023207" textual="false" version="1.0"/>
+</session>

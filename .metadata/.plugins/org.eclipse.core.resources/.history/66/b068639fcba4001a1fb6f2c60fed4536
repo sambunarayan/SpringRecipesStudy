@@ -1,0 +1,13 @@
+package com.apress.springrecipes.listener;
+
+import org.springframework.context.ApplicationListener;
+
+import com.apress.springrecipes.event.CheckoutEvent;
+
+public class CheckoutListener implements ApplicationListener<CheckoutEvent> {
+
+	@Override
+	public void onApplicationEvent(CheckoutEvent event) {
+		System.out.println("Checkout event [" + event.getTimestamp() + "]");
+	}
+}

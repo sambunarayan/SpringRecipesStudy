@@ -1,0 +1,12 @@
+package com.apress.springrecipes.event;
+
+import org.springframework.context.ApplicationEvent;
+
+public class CheckoutEvent extends ApplicationEvent {
+
+	public CheckoutEvent(Object source) {
+		super(source);
+		// TODO Auto-generated constructor stub
+	}
+
+}

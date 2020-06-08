@@ -1,0 +1,5 @@
+package com.apress.springrecipes.intercepter;
+
+public class MeasurementIntercepter implements HandlerIntercepter {
+
+}

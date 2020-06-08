@@ -1,0 +1,24 @@
+package com.apress.springrecipes.config;
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.apress.springrecipes.exception.ReservationNotAvailableException;
+
+@ControllerAdvice
+public class ExceptionHandlingAdvice {
+
+	@ExceptionHandler(ReservationNotAvailableException.class)
+	public String handle(ReservationNotAvailableException ex) {
+		System.out.println(ex);
+		System.out.println(ex.getCourtName());
+		System.out.println(ex.getHour());
+		System.out.println(ex.getDate());
+		return "reservationNotAvailable";
+	}
+	
+	@ExceptionHandler
+	public String handleDefault(Exception ex) {
+		return "error";
+	}
+}

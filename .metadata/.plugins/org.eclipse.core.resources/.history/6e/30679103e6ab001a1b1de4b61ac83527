@@ -1,5 +1,0 @@
-package com.apress.springrecipes.validator;
-
-public class PeriodicReservationValidator {
-
-}

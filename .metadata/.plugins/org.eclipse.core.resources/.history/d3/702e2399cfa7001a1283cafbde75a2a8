@@ -1,2 +1,0 @@
-welcome.(class)=org.springframework.web.servlet.view.JstlView
-welcome.url=/WEB-INF/jsp/welcome.jsp

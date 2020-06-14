@@ -1,4 +1,0 @@
-#Tomcat publish data
-#Sun Jun 07 17:39:15 GMT+09:00 2020
-org.eclipse.jst.j2ee.server\:RecipeMvcPractice=D\:\\Tool\\spring-tool-suite-3.9.10.RELEASE-e4.13.0-win32-x86_64\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\RecipeMvcPractice
-org.eclipse.jst.j2ee.server\:/binary\:C\:\\Users\\soyou\\.gradle\\caches\\modules-2\\files-2.1\\org.springframework\\spring-web\\5.2.6.RELEASE\\8cc2dbd266eb8f02d2df0895c8e887269e8aed88\\spring-web-5.2.6.RELEASE.jar=D\:\\Tool\\spring-tool-suite-3.9.10.RELEASE-e4.13.0-win32-x86_64\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\RecipeMvcPractice\\WEB-INF\\lib\\spring-web-5.2.6.RELEASE.jar

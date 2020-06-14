@@ -44,6 +44,10 @@
 		<td><form:errors path="player.phone" cssClass="error"/></td>
 	</tr>
 	<tr>
+		<td>Sport Type</td>
+		<td><form:select path="sportType" items="${sportTypes}" itemValue="id" itemLabel="name"/></td>
+	</tr>	
+	<tr>
 		<td colspan="3"><input type="submit" /></td>
 	</tr>
 </table>

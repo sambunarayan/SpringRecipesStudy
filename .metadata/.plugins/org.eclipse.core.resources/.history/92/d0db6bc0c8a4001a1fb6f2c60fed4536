@@ -1,7 +1,0 @@
-package com.apress.springrecipes.event;
-
-import org.springframework.context.ApplicationEvent;
-
-public class CheckoutEvent extends ApplicationEvent {
-
-}

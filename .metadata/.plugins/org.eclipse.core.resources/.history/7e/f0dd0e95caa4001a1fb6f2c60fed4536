@@ -1,5 +1,0 @@
-package com.apress.springrecipes.listener;
-
-public class CheckoutListener {
-
-}

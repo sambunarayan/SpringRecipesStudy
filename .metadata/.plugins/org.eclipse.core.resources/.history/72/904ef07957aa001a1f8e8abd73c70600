@@ -1,0 +1,5 @@
+welcome.title=Welcome Ja
+welcome.message=This is Welcome Message in Japanes.
+
+typeMismatch.date=Invalid date format
+typeMismatch.hour=Invalid hour format

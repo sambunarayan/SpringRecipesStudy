@@ -1,6 +1,9 @@
 package com.apress.springrecipes.service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -8,6 +11,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.apress.springrecipes.domain.PeriodicReservation;
 import com.apress.springrecipes.domain.Player;
 import com.apress.springrecipes.domain.Reservation;
 import com.apress.springrecipes.domain.SportType;
@@ -48,4 +52,45 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 	}
 
+	@Override
+	public List<SportType> getAllSportTypes() {
+		return Arrays.asList(TENNIS, SOCCER);
+	}
+
+	@Override
+	public SportType getSportType(int sportTypeId) {
+		switch (sportTypeId) {
+		case 1:
+			return TENNIS;
+		case 2:
+			return SOCCER;
+			default :
+				return null;
+		}
+	}
+
+	@Override
+	public void makePeriodic(PeriodicReservation periodicReservation) throws ReservationNotAvailableException {
+		
+		Date fromDate = periodicReservation.getFromDate();
+		LocalDate localDate = fromDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		while (localDate.isBefore(toLocalDate(periodicReservation.getToDate()))) {
+			Reservation reservation = new Reservation();
+			reservation.setCourtName(periodicReservation.getCourtName());
+			reservation.setDate(toDate(localDate));
+			reservation.setHour(periodicReservation.getHour());
+			reservation.setPlayer(periodicReservation.getPlayer());
+			make(reservation);
+			
+			localDate = localDate.plusDays(periodicReservation.getPeriod());
+		}
+	}
+
+	private LocalDate toLocalDate(Date date) {
+		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+	
+	private Date toDate(LocalDate localDate) {
+		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
 }

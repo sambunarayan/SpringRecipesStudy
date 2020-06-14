@@ -1,0 +1,25 @@
+package com.apress.springrecipes.validator;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+import com.apress.springrecipes.domain.Reservation;
+
+public class ReservationValidator implements Validator {
+
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return Reservation.class.isAssignableFrom(clazz);
+	}
+
+	@Override
+	public void validate(Object target, Errors errors) {
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "courtName", "required.courtName", "Court name is required.");
+		ValidationUtils.rejectIfEmpty(errors, "date", "required.date", "Date is required");
+		ValidationUtils.rejectIfEmpty(errors, "hour", "required.hour", "Hour is required");
+		ValidationUtils.rejectIfEmpty(errors, "player.name", "required.playerName", "Player name is required");
+	}
+
+}

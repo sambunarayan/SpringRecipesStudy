@@ -1,6 +1,0 @@
-package com.apress.springrecipes.web;
-
-public class CourtServletContainerInitializer implements ServletContainerInitializer {
-
-}
-	

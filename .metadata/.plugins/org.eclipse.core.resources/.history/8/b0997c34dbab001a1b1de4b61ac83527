@@ -1,0 +1,39 @@
+package com.apress.springrecipes.cotroller;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.apress.springrecipes.domain.PeriodicReservation;
+import com.apress.springrecipes.service.ReservationService;
+
+@Controller
+@RequestMapping("/periodicReservationForm")
+@SessionAttributes("reservation")
+public class PeriodReservationController {
+	private final Map<Integer, String> pageForms = new HashMap<>(3);
+	private final ReservationService service;
+	
+	public PeriodReservationController(ReservationService service) {
+		this.service = service;
+	}
+	
+	@PostConstruct
+	public void initialize() {
+		pageForms.put(0, "reservationCourtForm");
+		pageForms.put(1, "reservationTimeForm");
+		pageForms.put(2, "reservationPlayerForm");
+	}
+	
+	@GetMapping
+	public String setupForm(Model model) {
+		PeriodicReservation reservation = new PeriodicReservation
+	}
+}

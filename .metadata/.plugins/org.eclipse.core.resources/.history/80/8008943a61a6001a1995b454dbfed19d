@@ -1,7 +1,0 @@
-package com.apress.springrecipes.intercepter;
-
-import org.springframework.web.servlet.HandlerInterceptor;
-
-public class MeasurementIntercepter implements HandlerInterceptor {
-
-}

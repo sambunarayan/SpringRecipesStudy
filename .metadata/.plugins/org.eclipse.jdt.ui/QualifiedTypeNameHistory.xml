@@ -10,7 +10,6 @@
     <fullyQualifiedTypeName name="org.springframework.core.io.Resource"/>
     <fullyQualifiedTypeName name="org.springframework.core.io.support.PropertiesLoaderUtils"/>
     <fullyQualifiedTypeName name="com.apress.springrecipes.shop.config.ShopConfiguration"/>
-    <fullyQualifiedTypeName name="java.util.Locale"/>
     <fullyQualifiedTypeName name="com.apress.springrecipes.shop.ProductCreator"/>
     <fullyQualifiedTypeName name="org.apache.commons.logging.LogFactory"/>
     <fullyQualifiedTypeName name="com.apress.springrecipes.calculator.ArithmeticCalculatorImpl"/>
@@ -33,9 +32,19 @@
     <fullyQualifiedTypeName name="com.apress.springrecipes.config.ViewResolverConfiguration"/>
     <fullyQualifiedTypeName name="java.awt.PageAttributes.MediaType"/>
     <fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
-    <fullyQualifiedTypeName name="java.util.Date"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.apress.springrecipes.exception.ReservationNotAvailableException"/>
     <fullyQualifiedTypeName name="com.apress.springrecipes.config.ExceptionHandlerConfiguration"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.springframework.cglib.core.Converter"/>
+    <fullyQualifiedTypeName name="org.springframework.core.convert.converter.Converter"/>
+    <fullyQualifiedTypeName name="com.apress.springrecipes.domain.Reservation"/>
+    <fullyQualifiedTypeName name="java.util.Locale"/>
+    <fullyQualifiedTypeName name="java.time.ZoneId"/>
+    <fullyQualifiedTypeName name="com.apress.springrecipes.service.ReservationService"/>
+    <fullyQualifiedTypeName name="org.springframework.web.util.WebUtils"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="com.apress.springrecipes.domain.PeriodicReservation"/>
+    <fullyQualifiedTypeName name="org.springframework.validation.ValidationUtils"/>
 </qualifiedTypeNameHistroy>

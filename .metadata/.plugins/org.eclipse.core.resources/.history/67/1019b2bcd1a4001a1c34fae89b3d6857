@@ -1,6 +1,0 @@
-package com.apress.springrecipes.domain;
-
-public class Player {
-	private String name;
-	private String phone;
-}

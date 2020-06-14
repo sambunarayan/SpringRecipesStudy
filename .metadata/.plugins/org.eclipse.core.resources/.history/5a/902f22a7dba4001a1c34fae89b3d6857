@@ -1,9 +1,0 @@
-package com.apress.springrecipes.config;
-
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-@ComponentScan("com.apress.springrecipes")
-public class CourtConfiguration {
-
-}

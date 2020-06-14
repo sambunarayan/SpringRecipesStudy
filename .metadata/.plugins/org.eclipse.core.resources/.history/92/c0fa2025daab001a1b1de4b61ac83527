@@ -1,0 +1,8 @@
+package com.apress.springrecipes.cotroller;
+
+@Controller
+@RequestMapping("/periodicReservationForm")
+@SessionAttributes("reservation")
+public class PeriodReservationController {
+
+}

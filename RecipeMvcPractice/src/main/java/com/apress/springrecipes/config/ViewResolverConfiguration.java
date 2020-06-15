@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
-import org.springframework.web.servlet.view.ResourceBundleViewResolver;
+import org.springframework.web.servlet.view.XmlViewResolver;
 
 @Configuration
 public class ViewResolverConfiguration implements WebMvcConfigurer, ResourceLoaderAware {
@@ -38,14 +38,14 @@ public class ViewResolverConfiguration implements WebMvcConfigurer, ResourceLoad
 
 	@Bean
 	public ViewResolver viewResolver() {
-//		XmlViewResolver viewResolver = new XmlViewResolver();
-//		viewResolver.setLocation(resourceLoader.getResource("/WEB-INF/court-views.xml"));
+		XmlViewResolver viewResolver = new XmlViewResolver();
+		viewResolver.setLocation(resourceLoader.getResource("/WEB-INF/court-views.xml"));
 
-		ResourceBundleViewResolver viewResolver = new ResourceBundleViewResolver();
-		viewResolver.setBasename("court-views");
+//		ResourceBundleViewResolver viewResolver = new ResourceBundleViewResolver();
+//		viewResolver.setBasename("court-views");
 		viewResolver.setOrder(1);
 		return viewResolver;
-	}
+	}	
 	
 	@Bean
 	public ContentNegotiationManager contentNegotiationManager() {

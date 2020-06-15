@@ -93,4 +93,11 @@ public class ReservationServiceImpl implements ReservationService {
 	private Date toDate(LocalDate localDate) {
 		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
+
+	@Override
+	public List<Reservation> findByDate(Date date) {
+		return reservations.stream()
+				.filter(r->Objects.equals(r.getDate(), date))
+				.collect(Collectors.toList());
+	}
 }

@@ -22,8 +22,8 @@ public class CourtConfiguration {
 	public InternalResourceViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setOrder(2);
-		viewResolver.setPrefix("/WEB-INF/jsp/");
-		viewResolver.setSuffix(".jsp");
+//		viewResolver.setPrefix("/WEB-INF/jsp/");
+//		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
 	

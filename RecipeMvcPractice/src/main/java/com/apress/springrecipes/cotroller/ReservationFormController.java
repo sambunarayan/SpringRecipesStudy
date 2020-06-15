@@ -2,11 +2,12 @@ package com.apress.springrecipes.cotroller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,7 +51,7 @@ public class ReservationFormController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String submitForm(@ModelAttribute("reservation") @Validated Reservation reservation, BindingResult result,
+	public String submitForm(@ModelAttribute("reservation") @Valid Reservation reservation, BindingResult result,
 			SessionStatus status) {
 		if (result.hasErrors()) {
 			return "reservationForm";
@@ -61,8 +62,8 @@ public class ReservationFormController {
 		}
 	}
 	
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.setValidator(reservationValidator);
-	}
+//	@InitBinder
+//	public void initBinder(WebDataBinder binder) {
+//		binder.setValidator(reservationValidator);
+//	}
 }

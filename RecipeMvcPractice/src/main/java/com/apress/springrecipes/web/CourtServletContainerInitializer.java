@@ -11,9 +11,11 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.apress.springrecipes.config.CourtConfiguration;
+import com.apress.springrecipes.config.CourtRestConfiguration;
 import com.apress.springrecipes.config.ExceptionHandlerConfiguration;
 import com.apress.springrecipes.config.InterceptorConfiguration;
 import com.apress.springrecipes.config.ViewResolverConfiguration;
+import com.apress.springrecipes.config.WebConfiguration;
 
 public class CourtServletContainerInitializer implements ServletContainerInitializer {
 
@@ -21,7 +23,8 @@ public class CourtServletContainerInitializer implements ServletContainerInitial
 	public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
 		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
 		applicationContext.register(new Class[] { CourtConfiguration.class, InterceptorConfiguration.class,
-				ViewResolverConfiguration.class, ExceptionHandlerConfiguration.class });
+				ViewResolverConfiguration.class, ExceptionHandlerConfiguration.class, WebConfiguration.class,
+				CourtRestConfiguration.class});
 
 		DispatcherServlet dispatcherServlet = new DispatcherServlet(applicationContext);
 		ServletRegistration.Dynamic courtRegistration = ctx.addServlet("court", dispatcherServlet);

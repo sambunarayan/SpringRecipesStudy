@@ -6,4 +6,5 @@ import com.apress.springrecipes.domain.Member;
 
 public interface MemberService {
 	public List<Member> findAll();
+	public Member findAll(String memberid);
 }

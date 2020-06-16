@@ -22,5 +22,13 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> findAll() {
 		return this.members;
 	}
+
+	@Override
+	public Member findAll(String memberid) {
+		return this.members.stream()
+				.filter(member->member.getName().equals(memberid))
+				.findFirst()
+				.get();
+	}
 	
 }

@@ -18,19 +18,19 @@ import com.apress.springrecipes.intercepter.MeasurementInterceptor;
 @ComponentScan("com.apress.springrecipes")
 public class CourtConfiguration {
 
-	@Bean
-	public InternalResourceViewResolver internalResourceViewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setOrder(2);
+//	@Bean
+//	public InternalResourceViewResolver internalResourceViewResolver() {
+//		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//		viewResolver.setOrder(2);
 //		viewResolver.setPrefix("/WEB-INF/jsp/");
 //		viewResolver.setSuffix(".jsp");
-		return viewResolver;
-	}
+//		return viewResolver;
+//	}
 	
-	@Bean
-	public HandlerInterceptor measurementInterceptor() {
-		return new MeasurementInterceptor();
-	}
+//	@Bean
+//	public HandlerInterceptor measurementInterceptor() {
+//		return new MeasurementInterceptor();
+//	}
 	
 	@Bean
 	public MessageSource messageSource() {

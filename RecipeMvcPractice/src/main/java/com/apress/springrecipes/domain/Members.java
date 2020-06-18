@@ -27,4 +27,8 @@ public class Members {
 	public void addMembers(Collection<Member> members) {
 		this.members.addAll(members);
 	}
+	
+	public void addMember(Member member) {
+		members.add(member);
+	}
 }

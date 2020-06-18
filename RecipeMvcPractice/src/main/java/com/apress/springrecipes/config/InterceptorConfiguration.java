@@ -11,12 +11,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan("com.apress.springrecipes")
 public class InterceptorConfiguration implements WebMvcConfigurer {
 	
-	@Autowired
-	HandlerInterceptor interceptor;
+//	@Autowired
+//	HandlerInterceptor interceptor;
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(interceptor);
-	}
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(interceptor);
+//	}
 
 }

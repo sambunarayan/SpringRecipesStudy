@@ -1,8 +1,16 @@
 package com.apress.springrecipes.cotroller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,10 +40,29 @@ public class RestMemberController {
 //		return "membertemplate";
 	}
 	
-	@RequestMapping("/member/{memberid}")
+	@RequestMapping("/member/*/{memberid}")
 	@ResponseBody
-	public Member getMember(@PathVariable("memberid")String memberid) {
+	public ResponseEntity<Members> getMember(@PathVariable("memberid")String memberid) {
 		System.out.println("RestMemberController::getRestMember executed");
-		return memberService.findAll(memberid);
+		Member member = memberService.findAll(memberid);
+		if (member != null) {
+			Members members = new Members();
+			members.addMember(member);
+			return new ResponseEntity<>(members, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	@RequestMapping("/reservations/{date}")
+	@ResponseBody
+	public String getReservation(@PathVariable("date") Date resDate) {
+		return resDate.toString();
+	}
+	
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 }

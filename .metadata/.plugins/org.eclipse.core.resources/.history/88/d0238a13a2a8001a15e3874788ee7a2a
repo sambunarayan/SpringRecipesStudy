@@ -1,5 +1,0 @@
-package com.apress.springrecipes.exception;
-
-public class ReservationnotAvailableException {
-
-}

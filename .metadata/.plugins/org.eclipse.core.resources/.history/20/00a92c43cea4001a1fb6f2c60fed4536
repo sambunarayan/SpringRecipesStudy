@@ -1,5 +1,0 @@
-package com.apress.springrecipes.shop.config;
-
-public class ShopConfiguration {
-
-}

@@ -1,5 +1,0 @@
-package com.apress.springrecipes.event;
-
-public class CheckoutEvent {
-
-}

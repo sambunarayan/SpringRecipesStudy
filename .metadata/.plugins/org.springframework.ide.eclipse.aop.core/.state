@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<aop-reference-model>
-<aop-project name="demo"/>
-<aop-project name="springintro_mvn"/>
-<aop-project name="RecipeMvcPractice"/>
-<aop-project name="RecipeAopPractice"/>
-<aop-project name="RecipePractice"/>
-<aop-project name="RecipeThreadPractice"/>
-</aop-reference-model>

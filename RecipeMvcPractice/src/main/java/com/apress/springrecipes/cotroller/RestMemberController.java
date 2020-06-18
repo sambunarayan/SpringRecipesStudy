@@ -42,13 +42,11 @@ public class RestMemberController {
 	
 	@RequestMapping("/member/*/{memberid}")
 	@ResponseBody
-	public ResponseEntity<Members> getMember(@PathVariable("memberid")String memberid) {
+	public ResponseEntity<Member> getMember(@PathVariable("memberid")String memberid) {
 		System.out.println("RestMemberController::getRestMember executed");
 		Member member = memberService.findAll(memberid);
 		if (member != null) {
-			Members members = new Members();
-			members.addMember(member);
-			return new ResponseEntity<>(members, HttpStatus.OK);
+			return new ResponseEntity<>(member, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}

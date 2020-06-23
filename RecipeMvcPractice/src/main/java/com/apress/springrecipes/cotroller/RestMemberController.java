@@ -31,7 +31,7 @@ public class RestMemberController {
 	@RequestMapping("/members")
 	@ResponseBody
 	public Members getRestMember(Model model) {
-		System.out.println("RestMemberController::getRestMember executed");
+//		System.out.println("RestMemberController::getRestMember executed");
 		
 		Members members = new Members();
 		members.addMembers(memberService.findAll());
@@ -59,7 +59,7 @@ public class RestMemberController {
 	@RequestMapping("/member/*/{memberid}")
 	@ResponseBody
 	public ResponseEntity<Members> getMember(@PathVariable("memberid")String memberid) {
-		System.out.println("RestMemberController::getRestMember executed");
+//		System.out.println("RestMemberController::getRestMember executed");
 		Member member = memberService.findAll(memberid);
 		if (member != null) {
 			Members members = new Members();

@@ -3,17 +3,10 @@ package com.apress.springrecipes.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.oxm.Marshaller;
-import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.BeanNameViewResolver;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
-import org.springframework.web.servlet.view.xml.MarshallingView;
 
-import com.apress.springrecipes.domain.Member;
-import com.apress.springrecipes.domain.Members;
+import com.apress.springrecipes.feed.AtomFeedView;
+import com.apress.springrecipes.feed.RSSFeedView;
 
 @Configuration
 @EnableWebMvc
@@ -45,4 +38,14 @@ public class CourtRestConfiguration {
 //		view.setPrettyPrint(true);
 //		return view;
 //	}
+	
+	@Bean
+	public AtomFeedView atomfeedtemplate() {
+		return new AtomFeedView();
+	}
+	
+	@Bean
+	public RSSFeedView rssfeedtemplate() {
+		return new RSSFeedView();
+	}
 }

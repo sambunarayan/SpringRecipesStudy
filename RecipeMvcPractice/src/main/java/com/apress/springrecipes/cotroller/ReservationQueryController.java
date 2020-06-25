@@ -1,5 +1,7 @@
 package com.apress.springrecipes.cotroller;
 
+import java.io.IOException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -9,6 +11,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.core.task.AsyncListenableTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.concurrent.ListenableFuture;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.async.DeferredResult;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.apress.springrecipes.domain.Reservation;
 import com.apress.springrecipes.service.ReservationService;
@@ -102,5 +108,46 @@ public class ReservationQueryController {
 			model.addAttribute("reservations", reservations);
 			return "reservationQuery";
 		});
+	}
+	
+	@PostMapping("/emitter")
+	public ResponseEntity<ResponseBodyEmitter> find(@RequestParam("courtName") String courtName) {
+		ResponseBodyEmitter emitter = new ResponseBodyEmitter();
+		System.out.println("emitter execute");
+		taskExecutor.execute(()->{
+			Collection<Reservation> reservations = reservationService.query(courtName);
+			try {
+				for (Reservation reservation :reservations) {
+					Delayer.randomDelay();
+					emitter.send(reservation);
+					System.out.println("reservation sent");
+				}
+				emitter.complete();
+			} catch (IOException e) {
+				emitter.completeWithError(e);
+			}
+		});
+		System.out.println("ResponseBodyEmitter");
+		return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT)
+				.header("Custom-Header", "Custom-Value")
+				.body(emitter);
+	}
+	
+	@PostMapping("/sseemitter")
+	public SseEmitter findBySseEmitter(@RequestParam("courtName") String courtName) {
+		SseEmitter emitter = new SseEmitter();
+		taskExecutor.execute(()->{
+			Collection<Reservation> reservations = reservationService.query(courtName);
+			try {
+				for (Reservation reservation : reservations) {
+					Delayer.delay(125);
+					emitter.send(emitter.event().id(String.valueOf(reservation.hashCode())).data(reservation));
+				}
+				emitter.complete();
+			} catch (IOException e) {
+				emitter.completeWithError(e);
+			}
+		});
+		return emitter;
 	}
 }

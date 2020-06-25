@@ -26,8 +26,18 @@ public class ReservationServiceImpl implements ReservationService {
 	private final List<Reservation> reservations = new ArrayList<>();
 
 	public ReservationServiceImpl() {
-		reservations.add(new Reservation("Tennis #1", new Date(), 16, new Player("Roger", "N/A"), TENNIS));
-		reservations.add(new Reservation("Tennis #2", new Date(), 20, new Player("James", "N/A"), TENNIS));
+		reservations.add(new Reservation("Tennis1", new Date(), 16, new Player("Roger", "N/A"), TENNIS));
+		reservations.add(new Reservation("Tennis2", new Date(), 20, new Player("James", "N/A"), TENNIS));
+		reservations.add(new Reservation("Tennis3", new Date(), 21, new Player("James1", "N/A"), TENNIS));
+		reservations.add(new Reservation("Tennis4", new Date(), 22, new Player("James2", "N/A"), TENNIS));
+		reservations.add(new Reservation("Tennis5", new Date(), 23, new Player("James3", "N/A"), TENNIS));
+		reservations.add(new Reservation("Tennis6", new Date(), 23, new Player("James4", "N/A"), TENNIS));
+		reservations.add(new Reservation("Tennis7", new Date(), 16, new Player("James5", "N/A"), TENNIS));
+		reservations.add(new Reservation("Tennis8", new Date(), 14, new Player("James6", "N/A"), TENNIS));
+		
+		for (int i = 0; i < 5; i++) {
+			reservations.add(new Reservation("Tennis10", new Date(), 14, new Player("Emitter" + i, "N/A"), TENNIS));
+		}
 	}
 
 	@Override

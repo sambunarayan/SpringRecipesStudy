@@ -8,15 +8,15 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@ComponentScan("com.apress.springrecipes")
+@ComponentScan("com.apress.springrecipes.intercepter")
 public class InterceptorConfiguration implements WebMvcConfigurer {
 	
-//	@Autowired
-//	HandlerInterceptor interceptor;
+	@Autowired
+	HandlerInterceptor interceptor;
 
-//	@Override
-//	public void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(interceptor);
-//	}
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(interceptor);
+	}
 
 }

@@ -10,7 +10,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.apress.springrecipes.intercepter.MeasurementInterceptor;
 
@@ -27,10 +26,10 @@ public class CourtConfiguration {
 //		return viewResolver;
 //	}
 	
-//	@Bean
-//	public HandlerInterceptor measurementInterceptor() {
-//		return new MeasurementInterceptor();
-//	}
+	@Bean
+	public HandlerInterceptor measurementInterceptor() {
+		return new MeasurementInterceptor();
+	}
 	
 	@Bean
 	public MessageSource messageSource() {

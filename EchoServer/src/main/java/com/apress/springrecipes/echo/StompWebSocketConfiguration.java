@@ -20,5 +20,6 @@ public class StompWebSocketConfiguration extends AbstractWebSocketMessageBrokerC
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry.addEndpoint("/echo-endpoint");
+		
 	}
 }

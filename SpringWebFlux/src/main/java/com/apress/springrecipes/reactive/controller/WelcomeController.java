@@ -7,12 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import lombok.AllArgsConstructor;
 import reactor.core.publisher.Mono;
 
 @Controller
 @RequestMapping("/welcome")
-@AllArgsConstructor
 public class WelcomeController {
 
 	@GetMapping

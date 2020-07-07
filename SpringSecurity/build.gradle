@@ -1,0 +1,41 @@
+plugins {
+	id 'java'
+	id 'war'
+}
+
+group = 'SpringSecurity'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation "org.springframework:spring-webmvc:5.2.6.RELEASE"
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
+	implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.3.3.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
+	implementation group: 'org.springframework.security', name: 'spring-security-config', version: '5.3.3.RELEASE'
+	implementation 'javax.servlet:javax.servlet-api:3.1.0'
+    implementation 'javax.servlet:jsp-api:2.0'
+    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
+	// https://mvnrepository.com/artifact/javax.servlet/jstl
+	implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
+    // https://mvnrepository.com/artifact/javax/javaee-api
+	implementation group: 'javax', name: 'javaee-api', version: '8.0.1'
+
+	// https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api
+	implementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.1'
+	
+}
+
+test {
+	useJUnitPlatform()
+}

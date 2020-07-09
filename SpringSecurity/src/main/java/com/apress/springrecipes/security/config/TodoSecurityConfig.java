@@ -12,32 +12,43 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 @EnableWebSecurity
 public class TodoSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-//	public TodoSecurityConfig() {
-//		super(true);
-//	}
+	public TodoSecurityConfig() {
+		super(true);
+	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
-		.withUser("user.kim").password("user").authorities("USER")
+		.withUser("user.kim@test.io").password("user").authorities("USER")
 		.and()
 		.withUser("admin.kim").password("admin").authorities("ADMIN");
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		.antMatchers("/todos*").hasAuthority("USER")
-		.antMatchers(HttpMethod.DELETE, "/todos*").hasAuthority("ADMIN")
+		http.securityContext()
 		.and()
-		.formLogin()
+		.exceptionHandling()
 		.and()
-		.csrf().disable();
+		.httpBasic()
+		.and()
+		.formLogin().loginPage("/login.jsp");
 		
-		HttpSessionCsrfTokenRepository repo = new HttpSessionCsrfTokenRepository();
-		repo.setSessionAttributeName("csrf_token");
-		repo.setParameterName("csrf_token");
-		http.csrf().csrfTokenRepository(repo);
+//		http.authorizeRequests()
+//		.antMatchers("/todos*").hasAuthority("USER")
+//		.antMatchers(HttpMethod.DELETE, "/todos*").hasAuthority("ADMIN")
+//		.and()
+//		.formLogin().loginPage("/login.jsp")
+//		.defaultSuccessUrl("/todos")
+//		.and()
+//		.logout()
+//		.and()
+//		.headers();
+//		
+//		HttpSessionCsrfTokenRepository repo = new HttpSessionCsrfTokenRepository();
+//		repo.setSessionAttributeName("csrf_token");
+//		repo.setParameterName("csrf_token");
+//		http.csrf().csrfTokenRepository(repo);
 		
 //		http.securityContext().and().exceptionHandling().and().servletApi().and().httpBasic().and().formLogin();
 	}

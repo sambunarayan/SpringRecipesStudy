@@ -18,7 +18,7 @@ public class ServletInitializer extends AbstractSecurityWebApplicationInitialize
 	public ServletInitializer() {
 		super(TodoSecurityConfig.class);
 	}
-
+	
 	@Override
 	public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
 		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();

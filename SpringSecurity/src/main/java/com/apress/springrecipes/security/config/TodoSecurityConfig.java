@@ -1,7 +1,12 @@
 package com.apress.springrecipes.security.config;
 
+import javax.sql.DataSource;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,25 +20,33 @@ public class TodoSecurityConfig extends WebSecurityConfigurerAdapter {
 //		super(true);
 //	}
 	
-//	@Bean
-//	public DataSource dataSource() {
-//		return new EmbeddedDatabaseBuilder()
-//				.setType(EmbeddedDatabaseType.H2)
-//				.setName("board")
-//				.addScript("classpath:/schema.sql")
-//				.addScript("classpath:/data.sql")
-//				.build();
-//	}
+	@Bean
+	public DataSource dataSource() {
+		return new EmbeddedDatabaseBuilder()
+				.setType(EmbeddedDatabaseType.H2)
+				.setName("todos")
+				.addScript("classpath:/schema.sql")
+				.addScript("classpath:/data.sql")
+				.build();
+	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-//		auth.jdbcAuthentication().dataSource(dataSource());
+		auth.jdbcAuthentication().dataSource(dataSource())
+		.usersByUsernameQuery(
+				"SELECT userid, password, ENABLED " +
+						" FROM USERS WHERE USERNAME = ? ")
+		.authoritiesByUsernameQuery(
+				"SELECT USERS.USERNAME, AUTHORITIES.AUTHORITY "
+				+ "FROM USERS, AUTHORITIES " 
+				+ "WHERE USERS.USERNAME = ? AND USERS.USERNAME = AUTHORITIES.USERNAME "
+				);
 		
-		auth.inMemoryAuthentication()
-		.withUser("user.kim@test.io").password("{noop}user").authorities("USER")
-		.and()
-		.withUser("admin.kim").password("admin").authorities("ADMIN");
+//		auth.inMemoryAuthentication()
+//		.withUser("user.kim@test.io").password("{noop}user").authorities("USER")
+//		.and()
+//		.withUser("admin.kim").password("admin").authorities("ADMIN");
 	}
 	
 	@Override
@@ -51,11 +64,11 @@ public class TodoSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.DELETE, "/todos*").hasAuthority("ADMIN")
 		.and()
 		.formLogin().loginPage("/login.jsp")
-		.defaultSuccessUrl("/todos")
+		.loginProcessingUrl("/login")
+        .failureUrl("/login.jsp?error=true")
+        .permitAll()
 		.and()
-		.logout()
-		.and()	
-		.headers();
+		.logout().logoutSuccessUrl("/logout-success.jsp");
 //		
 //		HttpSessionCsrfTokenRepository repo = new HttpSessionCsrfTokenRepository();
 //		repo.setSessionAttributeName("csrf_token");

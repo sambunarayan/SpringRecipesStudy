@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -21,10 +22,15 @@ public class TodoSecurityConfig extends WebSecurityConfigurerAdapter {
 //	}
 	
 	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
 	public DataSource dataSource() {
 		return new EmbeddedDatabaseBuilder()
 				.setType(EmbeddedDatabaseType.H2)
-				.setName("todos")
+				.setName("board")
 				.addScript("classpath:/schema.sql")
 				.addScript("classpath:/data.sql")
 				.build();
@@ -33,7 +39,9 @@ public class TodoSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		auth.jdbcAuthentication().dataSource(dataSource())
+		auth.jdbcAuthentication()
+		.passwordEncoder(passwordEncoder())
+		.dataSource(dataSource())
 		.usersByUsernameQuery(
 				"SELECT userid, password, ENABLED " +
 						" FROM USERS WHERE USERNAME = ? ")

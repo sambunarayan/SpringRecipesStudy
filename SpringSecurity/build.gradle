@@ -19,7 +19,7 @@ dependencies {
 	implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.3.3.RELEASE'
 	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
 	implementation group: 'org.springframework.security', name: 'spring-security-config', version: '5.3.3.RELEASE'
-	implementation group: 'org.springframework', name: 'spring-jdbc', version: '4.3.0.RELEASE'
+	compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.0.RELEASE'
 	
 	implementation 'javax.servlet:javax.servlet-api:4.0.1'
     // https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api

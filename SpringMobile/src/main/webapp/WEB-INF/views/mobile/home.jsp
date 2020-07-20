@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h1>Welcome</h1>
+<h1>Welcome Mobile</h1>
 <p>
   Your User-Agent header: <c:out value="${header['User-Agent']}" />
 </p>

@@ -7,6 +7,9 @@ public class Vehicle {
 	private int wheel;
 	private int seat;
 	
+	public Vehicle() {
+	}
+	
 	public Vehicle(String vehicleNo, String color, int wheel, int seat) {
 		this.vehicleNo = vehicleNo;
 		this.color = color;
@@ -44,5 +47,11 @@ public class Vehicle {
 
 	public void setSeat(int seat) {
 		this.seat = seat;
+	}
+	
+	@Override
+	public String toString() {
+		return "[ " + this.getVehicleNo() + ", " + this.getColor() + ", " + this.getWheel()
+		+ ", " + this.getSeat() + " ]";
 	}
 }

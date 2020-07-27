@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import com.apress.springrecipes.dao.JdbcVehicleDao;
 import com.apress.springrecipes.dao.PlainJdbcVehicleDao;
 import com.apress.springrecipes.dao.VehicleDao;
 import com.zaxxer.hikari.HikariConfig;
@@ -19,7 +20,7 @@ public class RootConfig {
 	public VehicleDao vehicleDao() {
 		return new PlainJdbcVehicleDao(dataSource());
 	}
-
+	
 	@Bean
 	public DataSource dataSource() {
 //		DriverManagerDataSource dataSource = new DriverManagerDataSource();

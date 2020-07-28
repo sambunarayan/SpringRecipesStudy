@@ -5,9 +5,9 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.apress.springrecipes.dao.JdbcVehicleDao;
-import com.apress.springrecipes.dao.PlainJdbcVehicleDao;
 import com.apress.springrecipes.dao.VehicleDao;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -17,8 +17,15 @@ import com.zaxxer.hikari.HikariDataSource;
 public class RootConfig {
 
 	@Bean
-	public VehicleDao vehicleDao() {
-		return new PlainJdbcVehicleDao(dataSource());
+	public VehicleDao vehicleDao(JdbcTemplate jdbcTemplate) {
+		JdbcVehicleDao jdbcVehicleDao = new JdbcVehicleDao();
+		jdbcVehicleDao.setDataSource(dataSource());
+		return jdbcVehicleDao;
+	}
+	
+	@Bean
+	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+		return new JdbcTemplate(dataSource);
 	}
 	
 	@Bean

@@ -10,6 +10,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.apress.springrecipes.config.RootConfig;
 import com.apress.springrecipes.dao.JdbcVehicleDao;
+import com.apress.springrecipes.dao.NamedParameterJdbcVehicleDao;
+import com.apress.springrecipes.dao.PlainJdbcVehicleDao;
 import com.apress.springrecipes.dao.VehicleDao;
 import com.apress.springrecipes.vehicle.Vehicle;
 
@@ -17,7 +19,7 @@ public class Main {
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(RootConfig.class);
 
-		VehicleDao vehicleDao = context.getBean(VehicleDao.class);
+		VehicleDao vehicleDao = new PlainJdbcVehicleDao(context.getBean(DataSource.class));
 
 		vehicleDao.truncate();
 
@@ -28,7 +30,7 @@ public class Main {
 		System.out.println(vehicle);
 
 		vehicle = new Vehicle("TEM0002", "Blue", 3, 2);
-		VehicleDao jdbcVehicleDao = new JdbcVehicleDao(context.getBean(DataSource.class));
+		VehicleDao jdbcVehicleDao = context.getBean(JdbcVehicleDao.class);
 		jdbcVehicleDao.insert(vehicle);
 		vehicle.setColor("Yellow");
 		vehicle.setSeat(11);
@@ -51,5 +53,17 @@ public class Main {
 		
 		System.out.println("------- Count All --------");
 		System.out.println(jdbcVehicleDao.countAll());
+		
+		NamedParameterJdbcVehicleDao namedParameterDao = new NamedParameterJdbcVehicleDao();
+		namedParameterDao.setDataSource(context.getBean(DataSource.class));
+		namedParameterDao.insert(new Vehicle("TEM0007", "CYAN", 8, 9));
+		vehicles.clear();
+		vehicles.add(new Vehicle("TEM0008", "BLACK", 10, 11));
+		vehicles.add(new Vehicle("TEM0009", "PINK", 12, 13));
+		vehicles.add(new Vehicle("TEM0010", "ORANGE", 15, 16));
+		vehicles.add(new Vehicle("TEM0011", "GRAY", 17, 18));
+		namedParameterDao.insert(vehicles);
+		System.out.println("------- findAll --------");
+		jdbcVehicleDao.findAll().forEach(System.out::println);
 	}
 }

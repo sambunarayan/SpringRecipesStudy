@@ -1,5 +1,6 @@
 package com.apress.springrecipes;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.dao.DataAccessException;
 
 import com.apress.springrecipes.config.RootConfig;
 import com.apress.springrecipes.dao.JdbcVehicleDao;
@@ -25,7 +27,6 @@ public class Main {
 
 		Vehicle vehicle = new Vehicle("TEM0001", "Red", 4, 4);
 		vehicleDao.insert(vehicle);
-
 		vehicle = vehicleDao.findByVehicleNo(vehicle.getVehicleNo());
 		System.out.println(vehicle);
 
@@ -56,7 +57,13 @@ public class Main {
 		
 		NamedParameterJdbcVehicleDao namedParameterDao = new NamedParameterJdbcVehicleDao();
 		namedParameterDao.setDataSource(context.getBean(DataSource.class));
-		namedParameterDao.insert(new Vehicle("TEM0007", "CYAN", 8, 9));
+		try {
+			namedParameterDao.insert(new Vehicle("TEM0003", "CYAN", 8, 9));
+		} catch (DataAccessException e) {
+			SQLException sqle = (SQLException) e.getCause();
+			System.out.println("Error Code: " + sqle.getErrorCode());
+			System.out.println("SQL state: " + sqle.getSQLState());
+		}
 		vehicles.clear();
 		vehicles.add(new Vehicle("TEM0008", "BLACK", 10, 11));
 		vehicles.add(new Vehicle("TEM0009", "PINK", 12, 13));

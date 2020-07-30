@@ -39,7 +39,8 @@ public class Main {
 
 		List<Vehicle> vehicles = new ArrayList<>();
 		vehicles.add(new Vehicle("TEM0003", "BLACK", 1, 2));
-		vehicles.add(new Vehicle("TEM0004", "PINK", 3, 4));
+		vehicles.add(new Vehicle("TEM0004", ""
+				+ "PINK", 3, 4));
 		vehicles.add(new Vehicle("TEM0005", "ORANGE", 5, 6));
 		vehicles.add(new Vehicle("TEM0006", "GRAY", 7, 8));
 		jdbcVehicleDao.insert(vehicles);

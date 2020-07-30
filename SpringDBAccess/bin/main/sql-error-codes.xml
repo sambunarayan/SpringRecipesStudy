@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+    <bean id="OracleSQL"
+          class="org.springframework.jdbc.support.SQLErrorCodes">
+        <property name="useSqlStateForTranslation">
+            <value>true</value>
+        </property>
+        <property name="customTranslations">
+            <list>
+                <ref bean="myDuplicateKeyException"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="myDuplicateKeyException"
+          class="org.springframework.jdbc.support.CustomSQLErrorCodesTranslation">
+        <property name="errorCodes">
+            <value>23000</value>
+        </property>
+        <property name="exceptionClass">
+            <value>
+                com.apress.springrecipes.exception
+            </value>
+        </property>
+    </bean>
+</beans>

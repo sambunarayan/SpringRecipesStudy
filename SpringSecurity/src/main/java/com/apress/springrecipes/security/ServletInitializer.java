@@ -18,20 +18,18 @@ public class ServletInitializer extends AbstractSecurityWebApplicationInitialize
 	public ServletInitializer() {
 		super(TodoSecurityConfig.class);
 	}
-
+	
 	@Override
 	public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
 		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
 		applicationContext.register(new Class[] { TodoSecurityConfig.class});
 
 		DispatcherServlet dispatcherServlet = new DispatcherServlet(applicationContext);
-		ServletRegistration.Dynamic courtRegistration = ctx.addServlet("security", dispatcherServlet);
+		ServletRegistration.Dynamic courtRegistration = ctx.addServlet("dispatcher", dispatcherServlet);
 		courtRegistration.setLoadOnStartup(1);
 		courtRegistration.addMapping("/");
 		courtRegistration.setAsyncSupported(true);
 		
 	}
-
-
 
 }

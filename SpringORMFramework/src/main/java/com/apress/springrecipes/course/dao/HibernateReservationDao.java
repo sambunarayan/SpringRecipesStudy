@@ -8,13 +8,13 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
-import com.apress.springrecipes.course.Course;
+import com.apress.springrecipes.course.Reservation;
 
-public class HibernateCourseDao implements CourseDao {
-	
+public class HibernateReservationDao implements ReservationDao {
+
 	private final SessionFactory sessionFactory;
 	
-	public HibernateCourseDao() {
+	public HibernateReservationDao() {
 		Configuration configuration = new Configuration()
 				.setProperty(AvailableSettings.URL, "jdbc:oracle:thin:@localhost:1521:XE")
 				.setProperty(AvailableSettings.USER, "recipes")
@@ -22,19 +22,19 @@ public class HibernateCourseDao implements CourseDao {
 //				.setProperty(AvailableSettings.DIALECT, "oracle.jdbc.driver.OracleDriver")
 				.setProperty(AvailableSettings.SHOW_SQL, String.valueOf(true))
 				.setProperty(AvailableSettings.HBM2DDL_AUTO, "update")
-				.addClass(Course.class);
+				.addAnnotatedClass(Reservation.class);
 		sessionFactory = configuration.buildSessionFactory();
 	}
 
 	@Override
-	public Course store(Course course) {
+	public Reservation book(Reservation reserv) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.getTransaction();
 		try {
 			tx.begin();
-			session.saveOrUpdate(course);
+			session.saveOrUpdate(reserv);
 			tx.commit();
-			return course;
+			return reserv;
 		} catch (RuntimeException e) {
 			tx.rollback();
 			throw e;
@@ -44,13 +44,13 @@ public class HibernateCourseDao implements CourseDao {
 	}
 
 	@Override
-	public void delete(Long courseId) {
+	public void delete(Long reservId) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.getTransaction();
 		try {
 			tx.begin();
-			Course course = session.get(Course.class, courseId);
-			session.delete(course);
+			Reservation reserv = session.get(Reservation.class, reservId);
+			session.delete(reserv);
 			tx.commit();
 		} catch (RuntimeException e) {
 			tx.rollback();
@@ -61,10 +61,10 @@ public class HibernateCourseDao implements CourseDao {
 	}
 
 	@Override
-	public Course findById(Long courseId) {
+	public Reservation findById(Long reservId) {
 		Session session = sessionFactory.openSession();
 		try {
-			return session.get(Course.class, courseId);
+			return session.get(Reservation.class, reservId);
 		} catch (RuntimeException e) {
 			throw e;
 		} finally {
@@ -73,10 +73,10 @@ public class HibernateCourseDao implements CourseDao {
 	}
 
 	@Override
-	public List<Course> findAll() {
+	public List<Reservation> findAll() {
 		Session session = sessionFactory.openSession();
 		try {
-			return session.createQuery("SELECT c FROM Course c ", Course.class).list();
+			return session.createQuery("SELECT c FROM RESERVATION c ", Reservation.class).list();
 		} catch (RuntimeException e) {
 			throw e;
 		} finally {

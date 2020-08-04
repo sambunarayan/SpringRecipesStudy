@@ -51,4 +51,14 @@ public class Course {
 	public void setFee(int fee) {
 		this.fee = fee;
 	}
+	
+	@Override
+	public String toString() {
+		return "["
+				+ id + ", "
+				+ title + ", "
+				+ beginDate + ", "
+				+ endDate + ", "
+				+ fee + "]";
+	}
 }

@@ -7,6 +7,7 @@ import com.apress.springrecipes.course.Reservation;
 import com.apress.springrecipes.course.dao.CourseDao;
 import com.apress.springrecipes.course.dao.HibernateCourseDao;
 import com.apress.springrecipes.course.dao.HibernateReservationDao;
+import com.apress.springrecipes.course.dao.JpaCourseDao;
 
 public class Main {
 
@@ -39,6 +40,16 @@ public class Main {
 		System.out.println(reserv);
 		System.out.println(">>>>>>> find by id");
 		System.out.println(reservDao.findById(reserv.getId()));
+		
+		courseDao = new JpaCourseDao();
+//		course.setId(5L);
+		course.setTitle("JPA Test");
+		course.setBeginDate(new GregorianCalendar(2007, 8, 1).getTime());
+		course.setEndDate(new GregorianCalendar(2007, 9, 1).getTime());
+		course.setFee(113);
+		courseDao.store(course);
+		System.out.println(">>>>>>>>>>>> Test JPA  ");
+		System.out.println("ourse -> " + courseDao.findById(course.getId()));
 		
 	}
 }

@@ -11,6 +11,7 @@ import com.apress.springrecipes.course.Reservation;
 import com.apress.springrecipes.course.dao.CourseDao;
 import com.apress.springrecipes.course.dao.HibernateReservationDao;
 import com.apress.springrecipes.course.dao.JpaCourseDao;
+import com.apress.springrecipes.course.dao.JpaDao;
 
 public class Main {
 
@@ -47,15 +48,15 @@ public class Main {
 		System.out.println(">>>>>>> find by id");
 		System.out.println(reservDao.findById(reserv.getId()));
 		
-		JpaCourseDao jpaCourseDao = context.getBean(JpaCourseDao.class);
+		JpaDao jpaCourseDao = context.getBean(JpaCourseDao.class);
 //		course.setId(5L);
 		course.setTitle("JPA Test");
 		course.setBeginDate(new GregorianCalendar(2007, 8, 1).getTime());
 		course.setEndDate(new GregorianCalendar(2007, 9, 1).getTime());
 		course.setFee(113);
-		courseDao.store(course);
+		jpaCourseDao.store(course);
 		System.out.println(">>>>>>>>>>>> Test JPA  ");
-		System.out.println("ourse -> " + courseDao.findById(course.getId()));
+		System.out.println("ourse -> " + jpaCourseDao.findById(course.getId()));
 		
 	}
 }

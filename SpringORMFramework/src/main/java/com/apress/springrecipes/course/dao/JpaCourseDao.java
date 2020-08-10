@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 import com.apress.springrecipes.course.Course;
 
-public class JpaCourseDao implements CourseDao {
+public class JpaCourseDao implements JpaDao {
 
 	private EntityManagerFactory entityManagerFactory;
 	

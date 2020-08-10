@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.apress.springrecipes.course.Course;
 
+@Repository("courseDao")
 public class HibernateCourseDao implements CourseDao {
-	
+
 	private final SessionFactory sessionFactory;
-	
+
 	public HibernateCourseDao(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 //		Configuration configuration = new Configuration()
@@ -26,61 +28,33 @@ public class HibernateCourseDao implements CourseDao {
 	}
 
 	@Override
+	@Transactional
 	public Course store(Course course) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = session.getTransaction();
-		try {
-			tx.begin();
-			session.saveOrUpdate(course);
-			tx.commit();
-			return course;
-		} catch (RuntimeException e) {
-			tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(course);
+		return course;
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long courseId) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = session.getTransaction();
-		try {
-			tx.begin();
-			Course course = session.get(Course.class, courseId);
-			session.delete(course);
-			tx.commit();
-		} catch (RuntimeException e) {
-			tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
+		Session session = sessionFactory.getCurrentSession();
+		Course course = session.get(Course.class, courseId);
+		session.delete(course);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Course findById(Long courseId) {
-		Session session = sessionFactory.openSession();
-		try {
-			return session.get(Course.class, courseId);
-		} catch (RuntimeException e) {
-			throw e;
-		} finally {
-			session.close();
-		}
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(Course.class, courseId);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Course> findAll() {
-		Session session = sessionFactory.openSession();
-		try {
-			return session.createQuery("SELECT c FROM Course c ", Course.class).list();
-		} catch (RuntimeException e) {
-			throw e;
-		} finally {
-			session.close();
-		}
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery("SELECT c FROM Course c ", Course.class).list();
 	}
 
 }

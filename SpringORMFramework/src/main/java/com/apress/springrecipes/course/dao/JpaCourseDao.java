@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import com.apress.springrecipes.course.Course;
@@ -14,8 +13,9 @@ public class JpaCourseDao implements CourseDao {
 
 	private EntityManagerFactory entityManagerFactory;
 	
-	public JpaCourseDao() {
-		entityManagerFactory = Persistence.createEntityManagerFactory("course");
+	public JpaCourseDao(EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
+//		entityManagerFactory = Persistence.createEntityManagerFactory("course");
 	}
 
 	@Override

@@ -5,8 +5,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.AvailableSettings;
-import org.hibernate.cfg.Configuration;
 
 import com.apress.springrecipes.course.Course;
 
@@ -14,16 +12,17 @@ public class HibernateCourseDao implements CourseDao {
 	
 	private final SessionFactory sessionFactory;
 	
-	public HibernateCourseDao() {
-		Configuration configuration = new Configuration()
-				.setProperty(AvailableSettings.URL, "jdbc:oracle:thin:@localhost:1521:XE")
-				.setProperty(AvailableSettings.USER, "recipes")
-				.setProperty(AvailableSettings.PASS, "recipes")
-//				.setProperty(AvailableSettings.DIALECT, "oracle.jdbc.driver.OracleDriver")
-				.setProperty(AvailableSettings.SHOW_SQL, String.valueOf(true))
-				.setProperty(AvailableSettings.HBM2DDL_AUTO, "update")
-				.addClass(Course.class);
-		sessionFactory = configuration.buildSessionFactory();
+	public HibernateCourseDao(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+//		Configuration configuration = new Configuration()
+//				.setProperty(AvailableSettings.URL, "jdbc:oracle:thin:@localhost:1521:XE")
+//				.setProperty(AvailableSettings.USER, "recipes")
+//				.setProperty(AvailableSettings.PASS, "recipes")
+////				.setProperty(AvailableSettings.DIALECT, "oracle.jdbc.driver.OracleDriver")
+//				.setProperty(AvailableSettings.SHOW_SQL, String.valueOf(true))
+//				.setProperty(AvailableSettings.HBM2DDL_AUTO, "update")
+//				.addClass(Course.class);
+//		sessionFactory = configuration.buildSessionFactory();
 	}
 
 	@Override

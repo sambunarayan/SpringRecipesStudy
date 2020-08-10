@@ -2,17 +2,23 @@ package com.apress.springrecipes;
 
 import java.util.GregorianCalendar;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.apress.springrecipes.config.CourseConfiguration;
 import com.apress.springrecipes.course.Course;
 import com.apress.springrecipes.course.Reservation;
 import com.apress.springrecipes.course.dao.CourseDao;
-import com.apress.springrecipes.course.dao.HibernateCourseDao;
 import com.apress.springrecipes.course.dao.HibernateReservationDao;
 import com.apress.springrecipes.course.dao.JpaCourseDao;
 
 public class Main {
 
 	public static void main(String[] args) {
-		CourseDao courseDao = new HibernateCourseDao();
+		
+		ApplicationContext context = new AnnotationConfigApplicationContext(CourseConfiguration.class);
+		
+		CourseDao courseDao = context.getBean(CourseDao.class);
 		
 		Course course = new Course();
 //		course.setId(5L);
@@ -41,7 +47,7 @@ public class Main {
 		System.out.println(">>>>>>> find by id");
 		System.out.println(reservDao.findById(reserv.getId()));
 		
-		courseDao = new JpaCourseDao();
+		JpaCourseDao jpaCourseDao = context.getBean(JpaCourseDao.class);
 //		course.setId(5L);
 		course.setTitle("JPA Test");
 		course.setBeginDate(new GregorianCalendar(2007, 8, 1).getTime());

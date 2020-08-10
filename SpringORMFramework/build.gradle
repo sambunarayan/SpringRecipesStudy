@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
 	implementation "org.springframework:spring-webmvc:5.2.6.RELEASE"
+	implementation "org.springframework:spring-orm:5.2.8.RELEASE"
 	implementation 'javax.servlet:javax.servlet-api:4.0.1'
     // https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api
 	implementation group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.3'

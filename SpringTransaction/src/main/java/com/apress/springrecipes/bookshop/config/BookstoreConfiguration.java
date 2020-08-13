@@ -6,12 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.apress.springrecipes.bookshop.AnnotationJdbcBookShop;
 import com.apress.springrecipes.bookshop.BookShop;
-import com.apress.springrecipes.bookshop.TransactionalJdbcBookShop;
+import com.apress.springrecipes.bookshop.BookShopCashier;
+import com.apress.springrecipes.bookshop.Cashier;
 
 @Configuration
+@EnableTransactionManagement
 public class BookstoreConfiguration {
 
 	@Bean
@@ -26,13 +29,22 @@ public class BookstoreConfiguration {
 
 	@Bean
 	public BookShop bookShop() {
-		TransactionTemplate transactionTemplate = new TransactionTemplate();
-		transactionTemplate.setTransactionManager(transactionManager());
-		
-		TransactionalJdbcBookShop bookShop = new TransactionalJdbcBookShop();
+//		TransactionTemplate transactionTemplate = new TransactionTemplate();
+//		transactionTemplate.setTransactionManager(transactionManager());
+//		
+//		TransactionalJdbcBookShop bookShop = new TransactionalJdbcBookShop();
+//		bookShop.setDataSource(dataSource());
+//		bookShop.setTransactionTemplate(transactionTemplate);
+		AnnotationJdbcBookShop bookShop = new AnnotationJdbcBookShop();
 		bookShop.setDataSource(dataSource());
-		bookShop.setTransactionTemplate(transactionTemplate);
 		return bookShop;
+	}
+	
+	@Bean
+	public Cashier cashier() {
+		BookShopCashier cashier = new BookShopCashier();
+		cashier.setBookShop(bookShop());
+		return cashier;
 	}
 
 	@Bean

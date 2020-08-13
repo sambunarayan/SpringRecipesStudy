@@ -58,4 +58,16 @@ public class JdbcBookShop implements BookShop {
 			}
 		}
 	}
+
+	@Override
+	public void increaseStock(String isbn, int stock) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int checkStock(String isbn) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

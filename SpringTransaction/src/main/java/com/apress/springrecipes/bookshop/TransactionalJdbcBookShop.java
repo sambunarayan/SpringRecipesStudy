@@ -40,4 +40,16 @@ public class TransactionalJdbcBookShop extends JdbcDaoSupport implements BookSho
 //		}
 	}
 
+	@Override
+	public void increaseStock(String isbn, int stock) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int checkStock(String isbn) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

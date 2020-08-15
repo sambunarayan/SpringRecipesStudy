@@ -1,5 +1,7 @@
 package com.apress.springrecipes.bookshop;
 
+import java.io.IOException;
+
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -7,7 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class AnnotationJdbcBookShop extends JdbcDaoSupport implements BookShop {
 
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(
+			propagation = Propagation.REQUIRES_NEW,
+			timeout = 30,
+			readOnly = true,
+			rollbackFor = IOException.class,
+			noRollbackFor = ArithmeticException.class)
 	@Override
 	public void purchase(String isbn, String username) {
 		

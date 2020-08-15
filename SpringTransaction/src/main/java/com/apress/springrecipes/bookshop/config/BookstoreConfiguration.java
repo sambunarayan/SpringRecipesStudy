@@ -46,11 +46,11 @@ public class BookstoreConfiguration {
 		cashier.setBookShop(bookShop());
 		return cashier;
 	}
-
-	@Bean
-	public DataSourceTransactionManager transactionManager() {
-		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
-		transactionManager.setDataSource(dataSource());
-		return transactionManager;
-	}
+//
+//	@Bean
+//	public DataSourceTransactionManager transactionManager() {
+//		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
+//		transactionManager.setDataSource(dataSource());
+//		return transactionManager;
+//	}
 }

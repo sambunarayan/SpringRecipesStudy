@@ -2,3 +2,4 @@
 /RecipeRestPractice/
 .gradle
 Servers/*
+*.class

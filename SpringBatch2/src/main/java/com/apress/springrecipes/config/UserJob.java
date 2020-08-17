@@ -15,31 +15,31 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 
 import com.apress.springrecipes.beans.UserRegistration;
 
-@Configuration
+@SpringBootApplication
 @EnableBatchProcessing
 public class UserJob {
 	
 	private static final String INSERT_REGISTRATION_QUERY 
-			= "insert into USER_REGISTRATION (id, FIRST_NAME, LAST_NAME, COMPANY, "
+			= "insert into USER_REGISTRATION (FIRST_NAME, LAST_NAME, COMPANY, "
 					+ "ADDRESS, CITY, STATE, ZIP, COUNTY, URL, PHONE_NUMBER, FAX)" 
-					+ " values (user_registration_seq.nextval, :firstName, :lastName, :company, :address, :city, :state, :zip, :county, :url, :phoneNumber, :fax)";
+					+ " value (:firstName, :lastName, :company :address, :city :zip, :county, :url, :phoneNumber, :fax)";
 	
-	@Autowired
+	@Autowired(required=true)
 	private JobBuilderFactory jobs;
 	
-	@Autowired
+	@Autowired(required=true)
 	private StepBuilderFactory steps;
 	
-	@Autowired
+	@Autowired(required=true)
 	private DataSource dataSource;
 	
-	@Value("classpath:batches/registrations.csv")
+	@Value("file:${user.home}/batches/registrations.csv")
 	private Resource input;
 	
 	@Bean

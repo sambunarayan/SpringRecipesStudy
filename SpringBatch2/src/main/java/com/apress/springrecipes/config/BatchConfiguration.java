@@ -9,9 +9,9 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -21,10 +21,10 @@ import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
-@Configuration
+@SpringBootApplication
 //@EnableBatchProcessing
 @ComponentScan("com.apress.springrecipes.springbatch")
-@PropertySource("classpath:batch.properties")
+@PropertySource("application.properties")
 public class BatchConfiguration {
 
 	@Autowired
@@ -33,10 +33,10 @@ public class BatchConfiguration {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUrl(env.getRequiredProperty("dataSource.url"));
-		dataSource.setUsername(env.getRequiredProperty("dataSource.username"));
-		dataSource.setPassword(env.getRequiredProperty("dataSource.password"));
-		dataSource.setDriverClassName(env.getRequiredProperty("datasource.data-source-class-name"));
+		dataSource.setUrl(env.getRequiredProperty("spring.datasource.url"));
+		dataSource.setUsername(env.getRequiredProperty("spring.datasource.username"));
+		dataSource.setPassword(env.getRequiredProperty("spring.datasource.password"));
+		dataSource.setDriverClassName(env.getRequiredProperty("spring.datasource.driver-class-name"));
 		return dataSource;
 	}
 	
@@ -51,7 +51,7 @@ public class BatchConfiguration {
 	private DatabasePopulator databasePopulator() {
 		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
 		databasePopulator.setContinueOnError(true);
-		databasePopulator.addScript(new ClassPathResource("org/springframework/batch/core/schema-oracle10g.sql"));
+		databasePopulator.addScript(new ClassPathResource("org/springframework/batch/core/schema-h2.sql"));
 		databasePopulator.addScript(new ClassPathResource("sql/reset_user_registration.sql"));
 		databasePopulator.addScript(new ClassPathResource("sql/user_registration.sql"));
 		return databasePopulator;

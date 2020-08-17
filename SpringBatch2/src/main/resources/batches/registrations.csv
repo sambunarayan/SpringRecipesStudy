@@ -1,0 +1,2 @@
+"firstName", "lastName", "company", "address", "city", "state", "zip", "county", "url", "phoneNumber", "fax"
+spring,test,line,fukuoka,fukuoka,fukuoka,zippp,japan,http://www.google.co.jp,070,080

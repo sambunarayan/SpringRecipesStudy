@@ -1,5 +1,8 @@
 package com.apress.springrecipes.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.batch.core.Job;
@@ -7,12 +10,14 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +25,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 
 import com.apress.springrecipes.beans.UserRegistration;
+import com.apress.springrecipes.process.UserDuplicateCheckProcess;
+import com.apress.springrecipes.process.UserRegistrationValidationItemProcessor;
 
 @Configuration
 @EnableBatchProcessing
@@ -53,6 +60,7 @@ public class UserJob {
 		return steps.get("User Registration CSV To DB Step")
 				.<UserRegistration, UserRegistration>chunk(5)
 				.reader(csvFileReader())
+				.processor(compositeUserRegistrationProcessor())
 				.writer(jdbcItemWriter())
 				.build();
 	}
@@ -63,6 +71,25 @@ public class UserJob {
 		itemReader.setLineMapper(lineMapper());
 		itemReader.setResource(input);
 		return itemReader;
+	}
+	
+	@Bean
+	public ItemProcessor<UserRegistration, UserRegistration> userRegistrationValidationItemProcessor() {
+		return new UserRegistrationValidationItemProcessor();
+	}
+	
+	@Bean
+	public ItemProcessor<UserRegistration, UserRegistration> userDuplicateCheckProcess() {
+		return new UserDuplicateCheckProcess();
+	}
+	
+	@Bean
+	public CompositeItemProcessor<UserRegistration, UserRegistration> compositeUserRegistrationProcessor() {
+		List<ItemProcessor<UserRegistration, UserRegistration>> delegates = 
+				Arrays.asList(userRegistrationValidationItemProcessor(), userDuplicateCheckProcess());
+		CompositeItemProcessor<UserRegistration, UserRegistration> processor = new CompositeItemProcessor<>();
+		processor.setDelegates(delegates);
+		return processor;
 	}
 	
 	@Bean

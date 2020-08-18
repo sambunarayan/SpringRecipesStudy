@@ -16,6 +16,8 @@ repositories {
 
 dependencies {
 	implementation "org.springframework:spring-webmvc:5.2.6.RELEASE"
+	// https://mvnrepository.com/artifact/org.springframework/spring-core
+	implementation group: 'org.springframework', name: 'spring-core', version: '5.2.6.RELEASE'
 	implementation "org.springframework:spring-orm:5.2.8.RELEASE"
 	// https://mvnrepository.com/artifact/org.springframework.batch/spring-batch-core
 	implementation group: 'org.springframework.batch', name: 'spring-batch-core', version: '4.2.4.RELEASE'

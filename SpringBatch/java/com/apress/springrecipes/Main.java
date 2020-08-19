@@ -32,8 +32,10 @@ public class Main {
 		
 		JobLauncher joblauncher = context.getBean("jobLauncher", JobLauncher.class);
 		Job job = context.getBean("insertIntoDbFormCsvJob", Job.class);
-		
 		JobExecution jobExecution = jobLauncher.run(job, new JobParameters());
+		
+		Job job2 = context.getBean("updateDbFormCsvJob", Job.class);
+		jobExecution = joblauncher.run(job2, new JobParameters());  
 	}
 
 }

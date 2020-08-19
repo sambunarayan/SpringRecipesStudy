@@ -23,8 +23,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
+import org.springframework.dao.DeadlockLoserDataAccessException;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import com.apress.springrecipes.beans.UserRegistration;
+import com.apress.springrecipes.exception.MyException;
 import com.apress.springrecipes.process.UserDuplicateCheckProcess;
 import com.apress.springrecipes.process.UserRegistrationValidationItemProcessor;
 
@@ -59,9 +62,13 @@ public class UserJob {
 	public Step step1() {
 		return steps.get("User Registration CSV To DB Step")
 				.<UserRegistration, UserRegistration>chunk(5)
-				.reader(csvFileReader())
+					.faultTolerant()
+						.retryLimit(3).retry(DeadlockLoserDataAccessException.class)
+						.noRollback(MyException.class)
+				.reader(csvFileReader()).readerIsTransactionalQueue()
 				.processor(compositeUserRegistrationProcessor())
 				.writer(jdbcItemWriter())
+				.transactionManager(new DataSourceTransactionManager(dataSource))
 				.build();
 	}
 	

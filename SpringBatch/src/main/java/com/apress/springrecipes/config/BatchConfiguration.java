@@ -3,6 +3,7 @@ package com.apress.springrecipes.config;
 import javax.sql.DataSource;
 
 import org.springframework.batch.core.configuration.JobRegistry;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor;
 import org.springframework.batch.core.configuration.support.MapJobRegistry;
 import org.springframework.batch.core.launch.JobLauncher;
@@ -12,38 +13,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 @Configuration
 //@EnableBatchProcessing
-@ComponentScan("com.apress.springrecipes.springbatch")
-@PropertySource("classpath:batch.properties")
+@ComponentScan("com.apress.springrecipes.scheduler")
+@EnableScheduling
+@EnableAsync
 public class BatchConfiguration {
 
 	@Autowired
-	private Environment env;
-	
-	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUrl(env.getRequiredProperty("dataSource.url"));
-		dataSource.setUsername(env.getRequiredProperty("dataSource.username"));
-		dataSource.setPassword(env.getRequiredProperty("dataSource.password"));
-		dataSource.setDriverClassName(env.getRequiredProperty("datasource.data-source-class-name"));
-		return dataSource;
-	}
+	private DataSource dataSource;
 	
 	@Bean
 	public DataSourceInitializer dataSourceInitializer() {
 		DataSourceInitializer initializer = new DataSourceInitializer();
-		initializer.setDataSource(dataSource());
+		initializer.setDataSource(dataSource);
 		initializer.setDatabasePopulator(databasePopulator());
 		return initializer;
 	}
@@ -59,13 +51,13 @@ public class BatchConfiguration {
 	
 	@Bean
 	public DataSourceTransactionManager transactionManager() {
-		return new DataSourceTransactionManager(dataSource());
+		return new DataSourceTransactionManager(dataSource);
 	}
 	
 	@Bean
 	public JobRepositoryFactoryBean jobRepository() {
 		JobRepositoryFactoryBean jobRepositoryFactoryBean = new JobRepositoryFactoryBean();
-		jobRepositoryFactoryBean.setDataSource(dataSource());
+		jobRepositoryFactoryBean.setDataSource(dataSource);
 		jobRepositoryFactoryBean.setTransactionManager(transactionManager());
 		return jobRepositoryFactoryBean;
 	}
@@ -87,5 +79,13 @@ public class BatchConfiguration {
 	@Bean
 	public JobRegistry jobRegistry() {
 		return new MapJobRegistry();
+	}
+	
+	@Bean
+	public ThreadPoolTaskScheduler taskExecutor() {
+		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+		taskScheduler.setThreadGroupName("batch-scheduler");
+		taskScheduler.setPoolSize(10);
+		return taskScheduler;
 	}
 }

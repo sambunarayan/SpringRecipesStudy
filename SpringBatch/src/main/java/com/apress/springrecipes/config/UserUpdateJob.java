@@ -30,12 +30,12 @@ public class UserUpdateJob {
 	@Value("classpath:batches/updateusers.csv")
 	private Resource input;
 
-	@Bean
-	public Job updateDbFormCsvJob() {
-		return jobs.get("User Update Import Job")
-				.start(userUpdatestep1())
-				.build();
-	}
+//	@Bean
+//	public Job updateDbFormCsvJob() {
+//		return jobs.get("User Update Import Job")
+//				.start(userUpdatestep1())
+//				.build();
+//	}
 	
 	@Bean 
 	public Step userUpdatestep1() {
@@ -58,6 +58,6 @@ public class UserUpdateJob {
 	
 	@Bean
 	public UserUpdateService userUpdateService() {
-		return new UserUpdateServiceImpl();
+		return new UserUpdateServiceImpl(input);
 	}
 }

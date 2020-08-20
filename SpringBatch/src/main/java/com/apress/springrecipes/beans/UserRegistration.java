@@ -1,22 +1,38 @@
 package com.apress.springrecipes.beans;
 
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class UserRegistration implements Serializable {
+@Entity
+@Table(name= "USER_REGISTRATION")
+public class UserRegistration {
 
-	private static final long serialVersionUID = -6835115614889989503L;
-
+	@Id
+	@Column(name="ID")
 	private Long id;
+	@Column(name="FIRST_NAME")
 	private String firstName;
+	@Column(name="LAST_NAME")
 	private String lastName;
+	@Column(name="COMPANY")
 	private String company;
+	@Column(name="ADDRESS")
 	private String address;
+	@Column(name="CITY")
 	private String city;
+	@Column(name="STATE")
 	private String state;
+	@Column(name="ZIP")
 	private String zip;
+	@Column(name="COUNTY")
 	private String county;
+	@Column(name="URL")
 	private String url;
+	@Column(name="PHONE_NUMBER")
 	private String phoneNumber;
+	@Column(name="FAX")
 	private String fax;
 
 	public Long getId() {
@@ -113,9 +129,5 @@ public class UserRegistration implements Serializable {
 
 	public void setFax(String fax) {
 		this.fax = fax;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 }

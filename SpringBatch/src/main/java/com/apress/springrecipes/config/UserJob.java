@@ -10,6 +10,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
@@ -52,7 +53,7 @@ public class UserJob {
 	@Value("classpath:batches/registrations.csv")
 	private Resource input;
 	
-	@Bean
+	@Bean("insertIntoDbFormCsvJob")
 	public Job insertIntoDbFormCsvJob() {
 		return jobs.get("User Registration Import Job")
 				.start(step1())
@@ -65,7 +66,7 @@ public class UserJob {
 					.faultTolerant()
 						.retryLimit(3).retry(DeadlockLoserDataAccessException.class)
 						.noRollback(MyException.class)
-				.reader(csvFileReader()).readerIsTransactionalQueue()
+				.reader(csvFileReader(input)).readerIsTransactionalQueue()
 				.processor(compositeUserRegistrationProcessor())
 				.writer(jdbcItemWriter())
 				.transactionManager(new DataSourceTransactionManager(dataSource))
@@ -73,7 +74,8 @@ public class UserJob {
 	}
 	
 	@Bean
-	public FlatFileItemReader<UserRegistration> csvFileReader() {
+	@StepScope
+	public FlatFileItemReader<UserRegistration> csvFileReader(@Value("classpath:batches/#{jobParameters['input.file']}.csv") Resource input) {
 		FlatFileItemReader<UserRegistration> itemReader = new FlatFileItemReader<>();
 		itemReader.setLineMapper(lineMapper());
 		itemReader.setResource(input);

@@ -1,10 +1,14 @@
 package com.apress.springrecipes.process;
 
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ItemProcessor;
 
 import com.apress.springrecipes.beans.UserRegistration;
 
 public class UserRegistrationValidationItemProcessor implements ItemProcessor<UserRegistration, UserRegistration> {
+	
+	private StepExecution stepExecution;
 
 	private String stripNonNumbers(String input) {
 		return input.trim();
@@ -35,6 +39,11 @@ public class UserRegistrationValidationItemProcessor implements ItemProcessor<Us
 			return false;
 		}
 		return true;
+	}
+	
+	@BeforeStep
+	public void saveStepExecution(StepExecution stepExecution) {
+		this.stepExecution = stepExecution;
 	}
 	
 	@Override

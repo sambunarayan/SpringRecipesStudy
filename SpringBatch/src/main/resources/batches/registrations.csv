@@ -1,2 +1,5 @@
 firstName, lastName, company, address, city, state, zip, county, url, phoneNumber, fax
-spring,test,line,fukuoka,fukuoka,fukuoka,zippp,japan,http://www.google.co.jp,070,080
+spring,test1,line,fukuoka,fukuoka,fukuoka,8120016,1,http://www.google.co.jp,07012345678,080
+spring,test2,line,fukuoka,fukuoka,fukuoka,8120016,1,http://www.google.co.jp,0701234567,080
+spring,test3,line,fukuoka,fukuoka,fukuoka,8120017,1,http://www.google.co.jp,07012345679,080
+spring,test3,line,fukuoka,fukuoka,fukuoka,812001,1,http://www.google.co.jp,07012345670,080

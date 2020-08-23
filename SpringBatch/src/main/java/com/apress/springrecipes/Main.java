@@ -1,21 +1,17 @@
 package com.apress.springrecipes;
 
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
-import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.apress.springrecipes.scheduler.JobScheduler;
+
 public class Main {
 
-	public static void main(String[] args) throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
+	public static void main(String[] args) throws Throwable {
 		ApplicationContext context = new AnnotationConfigApplicationContext("com.apress.springrecipes.config");
 		
 		JobRegistry jobRegistry = context.getBean("jobRegistry", JobRegistry.class);
@@ -32,8 +28,10 @@ public class Main {
 		
 		JobLauncher joblauncher = context.getBean("jobLauncher", JobLauncher.class);
 		Job job = context.getBean("insertIntoDbFormCsvJob", Job.class);
+//		JobExecution jobExecution = jobLauncher.run(job, new JobParameters());
 		
-		JobExecution jobExecution = jobLauncher.run(job, new JobParameters());
+//		Job job2 = context.getBean("updateDbFormCsvJob", Job.class);
+//		jobExecution = joblauncher.run(job2, new JobParameters());  
 	}
 
 }
